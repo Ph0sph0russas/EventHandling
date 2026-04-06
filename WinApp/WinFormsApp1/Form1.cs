@@ -33,13 +33,13 @@ namespace WinFormsApp1
         {
             var g = e.Graphics;
             g.Clear(Color.White);
-
+            updatePlayer();
             foreach (var obj in objects.ToList())
             {
                 if (obj != player && player.Overlaps(obj, g))
                 {
                     player.Overlap(obj);
-                    obj.Overlap(player);
+                    
                 }
             }
             foreach (var obj in objects)
@@ -48,10 +48,9 @@ namespace WinFormsApp1
                 obj.Render(g);
             }
         }
-
-        private void timer1_Tick(object sender, EventArgs e)
+        private void updatePlayer()
         {
-            if (marker!=null)
+            if (marker != null)
             {
                 float dx = marker.X - player.X;
                 float dy = marker.Y - player.Y;
@@ -59,12 +58,21 @@ namespace WinFormsApp1
                 float length = MathF.Sqrt(dx * dx + dy * dy);
                 dx /= length;
                 dy /= length;
+                player.vX += dx * 0.5f;
+                player.vY += dy * 0.5f;
 
-                player.X += dx * 2;
-                player.Y += dy * 2;
+                player.Angle = 90 - MathF.Atan2(player.vX, player.vY) * 180 / MathF.PI;
             }
-            
+            player.vX += -player.vX * 0.1f;
+            player.vY += -player.vY * 0.1f;
 
+            
+            player.X += player.vX;
+            player.Y += player.vY;
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            
             pbMain.Invalidate();
         }
 
