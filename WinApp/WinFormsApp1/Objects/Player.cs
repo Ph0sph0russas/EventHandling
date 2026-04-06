@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Drawing.Drawing2D;
 namespace WinFormsApp1.Objects
 {
     class Player : BaseObject
     {
+        public Action<Marker> OnMarkerOverlap;
         public Player(float x, float y, float angle) : base(x, y, angle)
         {
         }
@@ -22,6 +23,20 @@ namespace WinFormsApp1.Objects
                 -15, -15,
                 30, 30);
             g.DrawLine(new Pen(Color.Black, 2), 0, 0, 25, 0);
+        }
+        public override GraphicsPath GetGraphicsPath()
+        {
+            var path = base.GetGraphicsPath();
+            path.AddEllipse(-15, -15, 30, 30);
+            return path;
+        }
+        public override void Overlap(BaseObject obj)
+        {
+            base.Overlap(obj);
+            if (obj is Marker)
+            {
+                OnMarkerOverlap(obj as Marker);
+            }
         }
     }
 }
