@@ -4,10 +4,11 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
-        MyRectangle myRect;
         List<BaseObject> objects = new();
         Player player;
         Marker marker;
+        GreenCircle greenCircle;
+        Random rnd = new Random();
         public Form1()
         {
             InitializeComponent();
@@ -21,12 +22,17 @@ namespace WinFormsApp1
                 objects.Remove(m);
                 marker = null;
             };
-            marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
+            player.OnCircleLap += (c) =>
+            {
+                objects.Remove(c);
+                greenCircle = null;
 
+            };
+            marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
+            greenCircle = new GreenCircle(rnd.Next(pbMain.Width-50), rnd.Next(pbMain.Height-50), 0);
             objects.Add(marker);
             objects.Add(player);
-            objects.Add(new MyRectangle(50, 50, 0));
-            objects.Add(new MyRectangle(100, 100, 45));
+            objects.Add(greenCircle);
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
@@ -72,7 +78,11 @@ namespace WinFormsApp1
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
+            if (greenCircle==null)
+            {
+                greenCircle = new GreenCircle(rnd.Next(pbMain.Width - 50), rnd.Next(pbMain.Height - 50), 0);
+                objects.Add(greenCircle);
+            }
             pbMain.Invalidate();
         }
 

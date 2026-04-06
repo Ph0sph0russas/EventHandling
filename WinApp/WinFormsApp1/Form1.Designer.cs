@@ -39,7 +39,7 @@
             // 
             pbMain.Location = new Point(12, 12);
             pbMain.Name = "pbMain";
-            pbMain.Size = new Size(776, 426);
+            pbMain.Size = new Size(538, 426);
             pbMain.TabIndex = 0;
             pbMain.TabStop = false;
             pbMain.Paint += pbMain_Paint;
