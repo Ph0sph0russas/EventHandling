@@ -9,9 +9,11 @@ namespace WinFormsApp1
         Marker marker;
         GreenCircle greenCircle;
         Random rnd = new Random();
+        int score = 0;
         public Form1()
         {
             InitializeComponent();
+            score_label.Text = "Очки: " + score;
             player = new Player(pbMain.Width / 2, pbMain.Height / 2, 0);
             player.OnOverlap += (p, obj) =>
             {
@@ -24,12 +26,15 @@ namespace WinFormsApp1
             };
             player.OnCircleLap += (c) =>
             {
+                
+                score++;
+                score_label.Text = "Очки: " + score;
                 objects.Remove(c);
                 greenCircle = null;
 
             };
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
-            greenCircle = new GreenCircle(rnd.Next(pbMain.Width-50), rnd.Next(pbMain.Height-50), 0);
+            greenCircle = new GreenCircle(rnd.Next(pbMain.Width - 50), rnd.Next(pbMain.Height - 50), 0);
             objects.Add(marker);
             objects.Add(player);
             objects.Add(greenCircle);
@@ -44,8 +49,9 @@ namespace WinFormsApp1
             {
                 if (obj != player && player.Overlaps(obj, g))
                 {
-                    player.Overlap(obj);
                     
+                    player.Overlap(obj);
+
                 }
             }
             foreach (var obj in objects)
@@ -72,13 +78,13 @@ namespace WinFormsApp1
             player.vX += -player.vX * 0.1f;
             player.vY += -player.vY * 0.1f;
 
-            
+
             player.X += player.vX;
             player.Y += player.vY;
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (greenCircle==null)
+            if (greenCircle == null)
             {
                 greenCircle = new GreenCircle(rnd.Next(pbMain.Width - 50), rnd.Next(pbMain.Height - 50), 0);
                 objects.Add(greenCircle);
@@ -92,7 +98,7 @@ namespace WinFormsApp1
             {
                 marker = new Marker(0, 0, 0);
                 objects.Add(marker);
-            }    
+            }
             marker.X = e.X;
             marker.Y = e.Y;
         }

@@ -32,6 +32,7 @@
             pbMain = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             txtLog = new RichTextBox();
+            score_label = new Label();
             ((System.ComponentModel.ISupportInitialize)pbMain).BeginInit();
             SuspendLayout();
             // 
@@ -59,17 +60,28 @@
             txtLog.TabIndex = 1;
             txtLog.Text = "";
             // 
+            // score_label
+            // 
+            score_label.AutoSize = true;
+            score_label.Location = new Point(490, 29);
+            score_label.Name = "score_label";
+            score_label.Size = new Size(38, 15);
+            score_label.TabIndex = 2;
+            score_label.Text = "label1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(score_label);
             Controls.Add(txtLog);
             Controls.Add(pbMain);
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)pbMain).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -77,5 +89,6 @@
         private PictureBox pbMain;
         private System.Windows.Forms.Timer timer1;
         private RichTextBox txtLog;
+        private Label score_label;
     }
 }
