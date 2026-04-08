@@ -43,6 +43,12 @@ namespace WinFormsApp1
         {
             var greenCircle = new GreenCircle(rnd.Next(pbMain.Width - 50), rnd.Next(pbMain.Height - 50), 0);
             objects.Add(greenCircle);
+            greenCircle.OnCircleLapOutOfTimer += (c) =>
+            {
+                circleGeneration();
+                objects.Remove(c);
+            };
+
         }
         private void pbMain_Paint(object sender, PaintEventArgs e)
         {
@@ -58,13 +64,13 @@ namespace WinFormsApp1
 
                 }
             }
-            foreach (var obj in objects)
+            foreach (var obj in objects.ToList())
             {
                 g.Transform = obj.GetTransform();
                 obj.Render(g);
             }
             int circlesCount = objects.OfType<GreenCircle>().Count();
-            while (circlesCount < 10)
+            while (circlesCount < 2)
             {
                 circleGeneration();
                 circlesCount = objects.OfType<GreenCircle>().Count();

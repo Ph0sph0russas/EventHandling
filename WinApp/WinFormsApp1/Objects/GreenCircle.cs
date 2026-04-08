@@ -9,7 +9,8 @@ namespace WinFormsApp1.Objects
 {
     class GreenCircle : BaseObject
     {
-
+        int lifeTimer = 70;
+        public Action<GreenCircle> OnCircleLapOutOfTimer;
         public GreenCircle(float x, float y, float angle) : base(x, y, angle)
         {
         }
@@ -19,6 +20,24 @@ namespace WinFormsApp1.Objects
 
             g.DrawEllipse(new Pen(Color.White),10, 10, 50, 50);
             g.FillEllipse(new SolidBrush(Color.Lime),10,10,50,50);
+            g.DrawString(
+            lifeTimer.ToString(),
+            new Font("Verdana", 8), // шрифт и размер
+            new SolidBrush(Color.Green), // цвет шрифта
+            10, 10 // точка в которой нарисовать текст
+            );
+            if (lifeTimer>0)
+            {
+                lifeTimer--;
+            }
+            else
+            {
+                if (OnCircleLapOutOfTimer!=null)
+                {
+                    OnCircleLapOutOfTimer(this);
+                }
+            }
+
         }
         public override GraphicsPath GetGraphicsPath()
         {
