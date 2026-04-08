@@ -7,7 +7,7 @@ namespace WinFormsApp1
         List<BaseObject> objects = new();
         Player player;
         Marker marker;
-        GreenCircle greenCircle;
+        
         Random rnd = new Random();
         int score = 0;
         public Form1()
@@ -30,16 +30,20 @@ namespace WinFormsApp1
                 score++;
                 score_label.Text = "Очки: " + score;
                 objects.Remove(c);
-                greenCircle = null;
+                
 
             };
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
-            greenCircle = new GreenCircle(rnd.Next(pbMain.Width - 50), rnd.Next(pbMain.Height - 50), 0);
+            ;
             objects.Add(marker);
             objects.Add(player);
+            
+        }
+        public void circleGeneration()
+        {
+            var greenCircle = new GreenCircle(rnd.Next(pbMain.Width - 50), rnd.Next(pbMain.Height - 50), 0);
             objects.Add(greenCircle);
         }
-
         private void pbMain_Paint(object sender, PaintEventArgs e)
         {
             var g = e.Graphics;
@@ -59,6 +63,13 @@ namespace WinFormsApp1
                 g.Transform = obj.GetTransform();
                 obj.Render(g);
             }
+            int circlesCount = objects.OfType<GreenCircle>().Count();
+            while (circlesCount < 10)
+            {
+                circleGeneration();
+                circlesCount = objects.OfType<GreenCircle>().Count();
+            }
+
         }
         private void updatePlayer()
         {
@@ -84,11 +95,7 @@ namespace WinFormsApp1
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (greenCircle == null)
-            {
-                greenCircle = new GreenCircle(rnd.Next(pbMain.Width - 50), rnd.Next(pbMain.Height - 50), 0);
-                objects.Add(greenCircle);
-            }
+            
             pbMain.Invalidate();
         }
 

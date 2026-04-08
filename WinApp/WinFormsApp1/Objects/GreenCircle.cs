@@ -9,6 +9,7 @@ namespace WinFormsApp1.Objects
 {
     class GreenCircle : BaseObject
     {
+
         public GreenCircle(float x, float y, float angle) : base(x, y, angle)
         {
         }
