@@ -22,9 +22,9 @@ namespace WinFormsApp1.Objects
             g.FillEllipse(new SolidBrush(Color.Lime),10,10,50,50);
             g.DrawString(
             lifeTimer.ToString(),
-            new Font("Verdana", 8), // шрифт и размер
-            new SolidBrush(Color.Green), // цвет шрифта
-            10, 10 // точка в которой нарисовать текст
+            new Font("Verdana", 8), 
+            new SolidBrush(Color.Green), 
+            10, 10 
             );
             if (lifeTimer>0)
             {

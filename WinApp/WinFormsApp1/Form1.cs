@@ -34,7 +34,6 @@ namespace WinFormsApp1
 
             };
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
-            ;
             objects.Add(marker);
             objects.Add(player);
             
